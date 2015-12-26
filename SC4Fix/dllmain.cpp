@@ -86,13 +86,6 @@ void __declspec(naked) Hook_Sub65EBA0_Pt2(void) {
 	ASMJMP(65EC8Bh);
 }
 
-/*void __declspec(naked) Hook_FreeLibrary(void) {
-	_asm pushad
-	MessageBoxA(NULL, "Preempted FreeLibrary successfully", NULL, NULL);
-	_asm popad
-	ASMJMP(0x87B5A8);
-}*/
-
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 {
 	if (dwReason == DLL_PROCESS_ATTACH) {
@@ -110,7 +103,6 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 		// nonetheless.
 		//----------------------------------------------------------
 		memset((void*)0x87B5A3, 0x90, 5);
-		//CPatcher::InstallHook(0x87B5A3, Hook_FreeLibrary);
 
 		MessageBoxA(NULL, "SC4Fix loaded", "SC4Fix", NULL);
 	}
