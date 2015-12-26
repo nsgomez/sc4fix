@@ -159,8 +159,6 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 		DLLUnloadPreempt::InstallPatch();
 		PuzzlePieceTE::InstallPatch();
 		TitleBarMod::InstallPatch();
-
-		MessageBoxA(NULL, "SC4Fix loaded", "SC4Fix", NULL);
 	}
 
 	return TRUE;
