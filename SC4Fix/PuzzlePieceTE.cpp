@@ -20,6 +20,15 @@
 
 #include "PuzzlePieceTE.h"
 
+uint32_t PuzzlePieceTE::Sub96D8E9_InjectPoint;
+uint32_t PuzzlePieceTE::Sub96D8E9_ContinueJump;
+
+uint32_t PuzzlePieceTE::Sub65EBA0_InjectPoint;
+uint32_t PuzzlePieceTE::Sub65EBA0_NullJump;
+uint32_t PuzzlePieceTE::Sub65EBA0_ContinueJump;
+
+uint32_t PuzzlePieceTE::Sub65EBA0_Pt2_ContinueJump;
+
 //----------------------------------------------------------
 //--- FIX CRASH WHEN HOVERING PUZZLE PIECES OVER LE LOTS ---
 // Seems to be a null dereference issue though I don't have
@@ -34,12 +43,12 @@ void __declspec(naked) PuzzlePieceTE::Hook_Sub96D8E9(void) {
 
 	if (pUnknown == NULL) {
 		_asm popad
-		ASMJMP(96D93Bh);
+		RETJMP(Sub96D8E9_ContinueJump);
 	}
 
 	_asm popad
 	_asm inc dword ptr ds:[eax+4]
-	ASMJMP(96D93Bh);
+	RETJMP(Sub96D8E9_ContinueJump);
 }
 
 void __declspec(naked) PuzzlePieceTE::Hook_Sub65EBA0(void) {
@@ -51,12 +60,12 @@ void __declspec(naked) PuzzlePieceTE::Hook_Sub65EBA0(void) {
 
 	if (pUnknown == NULL) {
 		_asm popad
-		ASMJMP(65EC86h);
+		RETJMP(Sub65EBA0_NullJump);
 	}
 
 	_asm popad
 	_asm mov ecx,dword ptr ds:[esi+18h]
-	ASMJMP(65EC63h);
+	RETJMP(Sub65EBA0_ContinueJump);
 }
 
 // This is especially weird: whatever was at ecx is
@@ -78,11 +87,42 @@ void __declspec(naked) PuzzlePieceTE::Hook_Sub65EBA0_Pt2(void) {
 	}
 
 	_asm fstp st
-	ASMJMP(65EC8Bh);
+	RETJMP(Sub65EBA0_Pt2_ContinueJump);
 }
 
 void PuzzlePieceTE::InstallPatch(void) {
-	CPatcher::InstallHook(0x96D935, Hook_Sub96D8E9);
-	CPatcher::InstallHook(0x65EC5E, Hook_Sub65EBA0);
-	CPatcher::InstallHook(0x65EC86, Hook_Sub65EBA0_Pt2);
+	// TODO: Everything seems to be offset by a certain
+	// amount but there are probably keyframes for these
+	// offsets that need to be taken into consideration.
+
+	switch (GetGameVersion()) {
+	case 640:
+		Sub96D8E9_InjectPoint = 0x96D935;
+		Sub96D8E9_ContinueJump = 0x96D93B;
+
+		Sub65EBA0_InjectPoint = 0x65EC5E;
+		Sub65EBA0_NullJump = 0x65EC86;
+		Sub65EBA0_ContinueJump = 0x65EC63;
+
+		Sub65EBA0_Pt2_ContinueJump = 0x65EC8B;
+		break;
+
+	case 641:
+		Sub96D8E9_InjectPoint = 0x96DA1D;
+		Sub96D8E9_ContinueJump = 0x96DA23;
+
+		Sub65EBA0_InjectPoint = 0x65EE3E;
+		Sub65EBA0_NullJump = 0x65EE66;
+		Sub65EBA0_ContinueJump = 0x65EE43;
+
+		Sub65EBA0_Pt2_ContinueJump = 0x65EE6B;
+		break;
+
+	default:
+		break;
+	}
+
+	CPatcher::InstallHook(Sub65EBA0_InjectPoint, Hook_Sub96D8E9);
+	CPatcher::InstallHook(Sub65EBA0_InjectPoint, Hook_Sub65EBA0);
+	CPatcher::InstallHook(Sub65EBA0_NullJump, Hook_Sub65EBA0_Pt2);
 }

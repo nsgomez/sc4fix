@@ -31,4 +31,13 @@ private:
 	static void Hook_Sub96D8E9(void);
 	static void Hook_Sub65EBA0(void);
 	static void Hook_Sub65EBA0_Pt2(void);
+
+	static uint32_t Sub96D8E9_InjectPoint;
+	static uint32_t Sub96D8E9_ContinueJump;
+
+	static uint32_t Sub65EBA0_InjectPoint;
+	static uint32_t Sub65EBA0_NullJump;
+	static uint32_t Sub65EBA0_ContinueJump;
+
+	static uint32_t Sub65EBA0_Pt2_ContinueJump;
 };

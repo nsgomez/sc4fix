@@ -27,5 +27,16 @@
 // nonetheless.
 //----------------------------------------------------------
 void DLLUnloadPreempt::InstallPatch(void) {
-	memset((void*)0x87B5A3, 0x90, 5);
+	switch (GetGameVersion()) {
+	case 640:
+		memset((void*)0x87B5A3, 0x90, 5);
+		break;
+
+	case 641:
+		memset((void*)0x87B3D1, 0x90, 5);
+		break;
+
+	default:
+		break;
+	}
 }
