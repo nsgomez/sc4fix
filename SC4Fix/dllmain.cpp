@@ -28,6 +28,31 @@
 #include "DLLUnloadPreempt.h"
 #include "PuzzlePieceTE.h"
 
+uint16_t nGameVersion = 0;
+
+/*
+			| 610 | 613 | 638 | 640 | 641
+	--------+-----------------------------
+	0x65EE0C| x23 | x23 | x03 | xD9 | xDD
+	0x65EE40| x00 | x00 | x22 | x63 | x8B
+	0x65EE6C| x08 | x08 | x0C | x75 | x5B
+*/
+void DetermineGameVersion(void) {
+	uint8_t uSentinel = *(uint8_t*)0x65EE0C;
+
+	switch (uSentinel) {
+	case 0x00: nGameVersion = 610; break;
+	case 0x22: nGameVersion = 638; break;
+	case 0x63: nGameVersion = 640; break;
+	case 0x8B: nGameVersion = 641; break;
+	default:   nGameVersion = 0;  break;
+	}
+}
+
+uint16_t GetGameVersion(void) {
+	return nGameVersion;
+}
+
 //----------------------------------------------------------
 // NOTE: All unnamed subroutines are based on their
 // addresses in patch 640.
