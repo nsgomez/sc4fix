@@ -27,6 +27,7 @@
 
 #include "DLLUnloadPreempt.h"
 #include "PuzzlePieceTE.h"
+#include "TitleBarMod.h"
 
 uint16_t nGameVersion = 0;
 
@@ -157,6 +158,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 		CPatcher::UnprotectAll();
 		DLLUnloadPreempt::InstallPatch();
 		PuzzlePieceTE::InstallPatch();
+		TitleBarMod::InstallPatch();
 
 		MessageBoxA(NULL, "SC4Fix loaded", "SC4Fix", NULL);
 	}
