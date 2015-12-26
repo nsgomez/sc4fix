@@ -47,9 +47,11 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 		}
 		else if (wVersion == 638) {
 			HandleVersion638();
+			return FALSE;
 		}
 		else if (wVersion != 640 && wVersion != 641) {
 			HandleUnknownVersion();
+			return FALSE;
 		}
 
 		CPatcher::UnprotectAll();
