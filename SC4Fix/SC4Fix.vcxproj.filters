@@ -39,6 +39,9 @@
     <ClCompile Include="TitleBarMod.cpp">
       <Filter>Source Files\patches</Filter>
     </ClCompile>
+    <ClCompile Include="version.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="exceptions.h">
@@ -58,6 +61,9 @@
     </ClInclude>
     <ClInclude Include="TitleBarMod.h">
       <Filter>Header Files\patches</Filter>
+    </ClInclude>
+    <ClInclude Include="version.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

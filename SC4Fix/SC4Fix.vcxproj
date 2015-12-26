@@ -164,6 +164,7 @@
     <ClCompile Include="patcher.cpp" />
     <ClCompile Include="PuzzlePieceTE.cpp" />
     <ClCompile Include="TitleBarMod.cpp" />
+    <ClCompile Include="version.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dllmain.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="patcher.h" />
     <ClInclude Include="PuzzlePieceTE.h" />
     <ClInclude Include="TitleBarMod.h" />
+    <ClInclude Include="version.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
