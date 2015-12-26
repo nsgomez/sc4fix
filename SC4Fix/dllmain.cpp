@@ -142,28 +142,19 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 		DisableThreadLibraryCalls(hModule);
 		DetermineGameVersion();
 
-		switch (GetGameVersion()) {
-		case 610:
-		case 613: // 613 seems identical to 610 in terms of code
+		uint16_t wVersion = GetGameVersion();
+		if (wVersion == 610 || wVersion == 613) {
 			HandleVersion610Or613();
 			return FALSE;
-
-		case 638:
+		}
+		else if (wVersion == 638) {
 			HandleVersion638();
-			return FALSE;
-
-		case 640:
-		case 641:
-			break;
-
-		case 0:
-		default:
+		}
+		else if (wVersion != 640 && wVersion != 641) {
 			HandleUnknownVersion();
-			return FALSE;
 		}
 
 		CPatcher::UnprotectAll();
-
 		DLLUnloadPreempt::InstallPatch();
 		PuzzlePieceTE::InstallPatch();
 
