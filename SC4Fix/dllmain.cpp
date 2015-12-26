@@ -19,11 +19,11 @@
 */
 
 #define WIN32_LEAN_AND_MEAN
+#include "dllmain.h"
 #include "patcher.h"
 
 #include <Windows.h>
 #include <stdio.h>
-#include <stdint.h>
 
 #include "DLLUnloadPreempt.h"
 #include "PuzzlePieceTE.h"
@@ -53,6 +53,55 @@ uint16_t GetGameVersion(void) {
 	return nGameVersion;
 }
 
+void HandleVersion610Or613(void) {
+	const char* szMsg = "You appear to be running an unpatched version of SimCity 4 "
+						"(version 610 or 613).\n"
+						"\n"
+						"SC4Fix only supports versions 640 (retail) and 641 (digital distribution) "
+						"of SimCity 4. You can update your game to version 638, and then update to "
+						"version 640 after that, to take advantage of this mod.\n"
+						"\n"
+						"Update 638 can be downloaded here:\n"
+						"http://tinyurl.com/SC4638\n"
+						"\n"
+						"Update 640 can be downloaded here:\n"
+						"http://tinyurl.com/SC4640 (Buildings Update)\n"
+						"\n"
+						"SC4Fix will not load further. Your game will continue to launch.";
+
+	MessageBoxA(NULL, szMsg, "SC4Fix: Unsupported Game Version", MB_OK | MB_ICONEXCLAMATION);
+}
+
+void HandleVersion638(void) {
+	const char* szMsg = "You appear to be running an unpatched version of SimCity 4 "
+						"(version 638).\n"
+						"\n"
+						"SC4Fix only supports versions 640 (retail) and 641 (digital distribution) "
+						"of SimCity 4. You can update your game by using the link below and "
+						"downloading the Buildings Update.\n"
+						"\n"
+						"Update 640 can be downloaded here:\n"
+						"http://tinyurl.com/SC4640\n"
+						"\n"
+						"SC4Fix will not load further. Your game will continue to launch.";
+
+	MessageBoxA(NULL, szMsg, "SC4Fix: Unsupported Game Version", MB_OK | MB_ICONEXCLAMATION);
+}
+
+void HandleUnknownVersion(void) {
+	const char* szMsg = "SC4Fix could not identify your version of SimCity 4.\n"
+						"\n"
+						"You may be running a vanilla version of SimCity, without the Rush Hour "
+						"expansion pack. If this is the case, it is strongly recommended that "
+						"you buy SimCity 4 Deluxe or the Rush Hour expansion separately, as "
+						"SC4Fix not only does not support the vanilla game, but many other "
+						"modifications will require a copy with Rush Hour as well.\n"
+						"\n"
+						"SC4Fix will not load further. Your game will continue to launch.";
+
+	MessageBoxA(NULL, szMsg, "SC4Fix: Unknown Game Version", MB_OK | MB_ICONEXCLAMATION);
+}
+
 //----------------------------------------------------------
 // NOTE: All unnamed subroutines are based on their
 // addresses in patch 640.
@@ -61,6 +110,28 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 {
 	if (dwReason == DLL_PROCESS_ATTACH) {
 		DisableThreadLibraryCalls(hModule);
+		DetermineGameVersion();
+
+		switch (GetGameVersion()) {
+		case 610:
+		case 613: // 613 seems identical to 610 in terms of code
+			HandleVersion610Or613();
+			return FALSE;
+
+		case 638:
+			HandleVersion638();
+			return FALSE;
+
+		case 640:
+		case 641:
+			break;
+
+		case 0:
+		default:
+			HandleUnknownVersion();
+			return FALSE;
+		}
+
 		CPatcher::UnprotectAll();
 
 		DLLUnloadPreempt::InstallPatch();

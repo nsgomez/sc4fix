@@ -20,6 +20,7 @@
 
 #pragma once
 #define WIN32_LEAN_AND_MEAN
+#include <stdint.h>
 #include <Windows.h>
 
 uint16_t GetGameVersion(void);
