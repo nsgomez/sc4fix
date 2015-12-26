@@ -1,6 +1,6 @@
 /*
    Project: SC4Fix Patches for SimCity 4
-   File: dllmain.cpp
+   File: PuzzlePieceTE.h
 
    Copyright (c) 2015 Nelson Gomez (simmaster07)
 
@@ -18,32 +18,17 @@
    THE SOFTWARE.
 */
 
-#define WIN32_LEAN_AND_MEAN
+#pragma once
+#include "dllmain.h"
 #include "patcher.h"
 
-#include <Windows.h>
-#include <stdio.h>
-#include <stdint.h>
-
-#include "DLLUnloadPreempt.h"
-#include "PuzzlePieceTE.h"
-
-//----------------------------------------------------------
-// NOTE: All unnamed subroutines are based on their
-// addresses in patch 640.
-//----------------------------------------------------------
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
+class PuzzlePieceTE
 {
-	if (dwReason == DLL_PROCESS_ATTACH) {
-		DisableThreadLibraryCalls(hModule);
-		CPatcher::UnprotectAll();
+public:
+	static void InstallPatch(void);
 
-		DLLUnloadPreempt::InstallPatch();
-		PuzzlePieceTE::InstallPatch();
-
-		MessageBoxA(NULL, "SC4Fix loaded", "SC4Fix", NULL);
-	}
-
-	return TRUE;
-}
-
+private:
+	static void Hook_Sub96D8E9(void);
+	static void Hook_Sub65EBA0(void);
+	static void Hook_Sub65EBA0_Pt2(void);
+};

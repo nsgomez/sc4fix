@@ -1,6 +1,6 @@
 /*
    Project: SC4Fix Patches for SimCity 4
-   File: dllmain.cpp
+   File: DLLUnloadPreempt.cpp
 
    Copyright (c) 2015 Nelson Gomez (simmaster07)
 
@@ -18,32 +18,14 @@
    THE SOFTWARE.
 */
 
-#define WIN32_LEAN_AND_MEAN
-#include "patcher.h"
-
-#include <Windows.h>
-#include <stdio.h>
-#include <stdint.h>
-
 #include "DLLUnloadPreempt.h"
-#include "PuzzlePieceTE.h"
 
+//--- DISABLE LIBRARY UNLOADING IN SC4 ---------------------
+// Replaces a call in cGZCOMLibrary::Free to FreeLibrary
+// with a no-op. SC4 won't know that any nonstandard
+// DLLs are loaded, but they'll remain loaded in memory
+// nonetheless.
 //----------------------------------------------------------
-// NOTE: All unnamed subroutines are based on their
-// addresses in patch 640.
-//----------------------------------------------------------
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
-{
-	if (dwReason == DLL_PROCESS_ATTACH) {
-		DisableThreadLibraryCalls(hModule);
-		CPatcher::UnprotectAll();
-
-		DLLUnloadPreempt::InstallPatch();
-		PuzzlePieceTE::InstallPatch();
-
-		MessageBoxA(NULL, "SC4Fix loaded", "SC4Fix", NULL);
-	}
-
-	return TRUE;
+void DLLUnloadPreempt::InstallPatch(void) {
+	memset((void*)0x87B5A3, 0x90, 5);
 }
-
