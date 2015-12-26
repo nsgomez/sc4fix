@@ -2,6 +2,7 @@
 #include <stdint.h>
 
 #define ASMJMP(a) _asm { mov CPatcher::uJumpBuffer, a } _asm { jmp CPatcher::uJumpBuffer }
+#define RETJMP(a) _asm { push a } _asm { ret }
 
 typedef void (*tfnHookFunc)(void);
 
