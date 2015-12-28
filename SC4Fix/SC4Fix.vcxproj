@@ -160,7 +160,6 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="DLLUnloadPreempt.cpp" />
-    <ClCompile Include="exceptions.cpp" />
     <ClCompile Include="patcher.cpp" />
     <ClCompile Include="PuzzlePieceTE.cpp" />
     <ClCompile Include="TitleBarMod.cpp" />
@@ -169,7 +168,6 @@
   <ItemGroup>
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="DLLUnloadPreempt.h" />
-    <ClInclude Include="exceptions.h" />
     <ClInclude Include="patcher.h" />
     <ClInclude Include="PuzzlePieceTE.h" />
     <ClInclude Include="TitleBarMod.h" />
