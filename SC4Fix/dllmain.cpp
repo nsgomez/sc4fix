@@ -30,6 +30,45 @@
 #include "PuzzlePieceTE.h"
 #include "TitleBarMod.h"
 
+// This should never be modified or else you'll create
+// conflicts between versions.
+#define MUTEX_NAME "SC4Fix_{FA65A963-9315-4A2F-ADBB-4A2F36E056F5}"
+
+HANDLE hMutex;
+BOOL ReserveInstance(void) {
+	hMutex = CreateMutexA(NULL, FALSE, MUTEX_NAME);
+	if (GetLastError() == ERROR_ALREADY_EXISTS) {
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+void HandleConflictingInstances(HMODULE hModule) {
+	const char* szFmt = "There appear to be multiple instances of SC4Fix installed in your "
+						"plugins folder.\n"
+						"\n"
+						"This copy of SC4Fix will abort loading in order to avoid damaging "
+						"and destabilizing your game. It is still recommended that you "
+						"remove this copy and other conflicting copies of SC4Fix. Once "
+						"you have done that, this message will no longer appear.\n"
+						"\n"
+						"This duplicate copy of SC4Fix can be located at this path:\n"
+						"%s";
+
+	char* szPath = new char[MAX_PATH];
+	GetModuleFileNameA(hModule, szPath, MAX_PATH);
+
+	const int nMessageLen = strlen(szFmt) + MAX_PATH;
+	char* szMsg = new char[nMessageLen];
+	sprintf_s(szMsg, nMessageLen, szFmt, szPath);
+
+	MessageBoxA(NULL, szMsg, "SC4Fix: Conflicting DLLs", MB_OK | MB_ICONEXCLAMATION);
+
+	delete[] szPath;
+	delete[] szMsg;
+}
+
 //----------------------------------------------------------
 // NOTE: All unnamed subroutines are based on their
 // addresses in patch 640.
@@ -38,6 +77,11 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 {
 	if (dwReason == DLL_PROCESS_ATTACH) {
 		DisableThreadLibraryCalls(hModule);
+		if (!ReserveInstance()) {
+			HandleConflictingInstances(hModule);
+			return FALSE;
+		}
+
 		DetermineGameVersion();
 
 		uint16_t wVersion = GetGameVersion();
