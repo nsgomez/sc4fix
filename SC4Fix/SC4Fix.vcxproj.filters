@@ -39,6 +39,9 @@
     <ClCompile Include="version.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="singleinstance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="patcher.h">
@@ -57,6 +60,9 @@
       <Filter>Header Files\patches</Filter>
     </ClInclude>
     <ClInclude Include="version.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="singleinstance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

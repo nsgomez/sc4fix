@@ -162,6 +162,7 @@
     <ClCompile Include="DLLUnloadPreempt.cpp" />
     <ClCompile Include="patcher.cpp" />
     <ClCompile Include="PuzzlePieceTE.cpp" />
+    <ClCompile Include="singleinstance.cpp" />
     <ClCompile Include="TitleBarMod.cpp" />
     <ClCompile Include="version.cpp" />
   </ItemGroup>
@@ -170,6 +171,7 @@
     <ClInclude Include="DLLUnloadPreempt.h" />
     <ClInclude Include="patcher.h" />
     <ClInclude Include="PuzzlePieceTE.h" />
+    <ClInclude Include="singleinstance.h" />
     <ClInclude Include="TitleBarMod.h" />
     <ClInclude Include="version.h" />
   </ItemGroup>
