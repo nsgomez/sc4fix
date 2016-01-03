@@ -24,6 +24,7 @@
 #include "version.h"
 
 #include <Windows.h>
+#include <Psapi.h>
 #include <stdio.h>
 
 #include "DLLUnloadPreempt.h"
@@ -35,6 +36,31 @@
 #define MUTEX_NAME "SC4Fix_{FA65A963-9315-4A2F-ADBB-4A2F36E056F5}"
 
 HANDLE hMutex;
+BOOL NonMutexedInstanceExists(void) {
+	// Check if the DLL unload preempt is already in place
+	uint32_t dwAddress = NULL;
+	switch (GetGameVersion()) {
+	case 640:
+		dwAddress = 0x87B5A3;
+		break;
+
+	case 641:
+		dwAddress = 0x87B3D1;
+		break;
+
+	default:
+		return FALSE;
+	}
+
+	// We know DLL unloading is preempted if the code at
+	// this address is already filled with NOP instructions.
+	if (*(uint8_t*)dwAddress == 0x90) {
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
 BOOL ReserveInstance(void) {
 	hMutex = CreateMutexA(NULL, FALSE, MUTEX_NAME);
 	if (GetLastError() == ERROR_ALREADY_EXISTS) {
@@ -56,17 +82,67 @@ void HandleConflictingInstances(HMODULE hModule) {
 						"This duplicate copy of SC4Fix can be located at this path:\n"
 						"%s";
 
-	char* szPath = new char[MAX_PATH];
-	GetModuleFileNameA(hModule, szPath, MAX_PATH);
-
 	const int nMessageLen = strlen(szFmt) + MAX_PATH;
 	char* szMsg = new char[nMessageLen];
-	sprintf_s(szMsg, nMessageLen, szFmt, szPath);
+
+	if (hModule != NULL) {
+		char* szPath = new char[MAX_PATH];
+		GetModuleFileNameA(hModule, szPath, MAX_PATH);
+
+		sprintf_s(szMsg, nMessageLen, szFmt, szPath);
+		delete[] szPath;
+	}
+	else {
+		sprintf_s(szMsg, nMessageLen, szFmt,
+			"<SC4Fix could not automatically determine where the duplicate copy is.>");
+	}
 
 	MessageBoxA(NULL, szMsg, "SC4Fix: Conflicting DLLs", MB_OK | MB_ICONEXCLAMATION);
-
-	delete[] szPath;
 	delete[] szMsg;
+}
+
+void HandleNonMutexedInstance(void) {
+	// Find the address the non-mutexed code is at by finding where the
+	// TE fix code jumps to.
+	uint32_t dwAddress = NULL;
+	switch (GetGameVersion()) {
+	case 640:
+		dwAddress = 0x65EC5E;
+		break;
+
+	case 641:
+		dwAddress = 0x65EE3E;
+		break;
+
+	default:
+		return;
+	}
+
+	dwAddress = *(uint32_t*)(dwAddress + 1);
+
+	// Enumerate the DLLs loaded into the game to search for the module
+	// belonging to that address.
+	HMODULE hModules[512];
+	HMODULE hBadModule = NULL;
+	DWORD cbNeeded;
+
+	if (EnumProcessModules(GetCurrentProcess(), hModules, sizeof(hModules), &cbNeeded)) {
+		for (int i = 0; i < (int)(cbNeeded / sizeof(HMODULE)); i++) {
+			MODULEINFO modInfo;
+			GetModuleInformation(GetCurrentProcess(), hModules[i], &modInfo, sizeof(MODULEINFO));
+
+			uint32_t dwBaseAddress = (uint32_t)hModules[i];
+			uint32_t dwModuleSize = modInfo.SizeOfImage;
+
+			if (dwAddress >= dwBaseAddress && dwAddress <= dwBaseAddress + dwModuleSize) {
+				hBadModule = hModules[i];
+				break;
+			}
+		}
+	}
+
+	// Produce an error message.
+	HandleConflictingInstances(hBadModule);
 }
 
 //----------------------------------------------------------
@@ -77,33 +153,38 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 {
 	if (dwReason == DLL_PROCESS_ATTACH) {
 		DisableThreadLibraryCalls(hModule);
-		if (!ReserveInstance()) {
-			HandleConflictingInstances(hModule);
-			return FALSE;
-		}
-
 		DetermineGameVersion();
 
 		uint16_t wVersion = GetGameVersion();
 		if (wVersion == 610 || wVersion == 613) {
 			HandleVersion610Or613();
-			return FALSE;
 		}
 		else if (wVersion == 638) {
 			HandleVersion638();
-			return FALSE;
 		}
 		else if (wVersion != 640 && wVersion != 641) {
 			HandleUnknownVersion();
-			return FALSE;
 		}
+		else if (!ReserveInstance()) {
+			HandleConflictingInstances(hModule);
+		}
+		else if (NonMutexedInstanceExists()) {
+			HandleNonMutexedInstance();
+		}
+		else {
+			CPatcher::UnprotectAll();
+			DLLUnloadPreempt::InstallPatch();
+			PuzzlePieceTE::InstallPatch();
+			TitleBarMod::InstallPatch();
 
-		CPatcher::UnprotectAll();
-		DLLUnloadPreempt::InstallPatch();
-		PuzzlePieceTE::InstallPatch();
-		TitleBarMod::InstallPatch();
+			return TRUE;
+		}
 	}
 
-	return TRUE;
+	if (hMutex != NULL) {
+		ReleaseMutex(hMutex);
+	}
+
+	return FALSE;
 }
 
