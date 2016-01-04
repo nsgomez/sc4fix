@@ -171,9 +171,13 @@
     <ClInclude Include="DLLUnloadPreempt.h" />
     <ClInclude Include="patcher.h" />
     <ClInclude Include="PuzzlePieceTE.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="singleinstance.h" />
     <ClInclude Include="TitleBarMod.h" />
     <ClInclude Include="version.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SC4Fix.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
