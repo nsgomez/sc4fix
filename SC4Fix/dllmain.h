@@ -20,6 +20,8 @@
 
 #pragma once
 #define WIN32_LEAN_AND_MEAN
+#define SC4FIX_RELEASE_VER 5
+
 #include <stdint.h>
 #include <Windows.h>
 

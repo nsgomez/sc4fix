@@ -22,7 +22,7 @@
 #include <string>
 
 // This is restricted to 15 characters + the null terminator
-std::string szCaption("SC4Fix r4");
+std::string szCaption("SC4Fix");
 
 void __declspec(naked) TitleBarMod::Hook_Sub44C2B0(void) {
 	_asm mov edx, offset szCaption
@@ -47,4 +47,7 @@ void TitleBarMod::InstallPatch(void) {
 	default:
 		break;
 	}
+
+	szCaption.append(" r");
+	szCaption.append(std::to_string(SC4FIX_RELEASE_VER));
 }
