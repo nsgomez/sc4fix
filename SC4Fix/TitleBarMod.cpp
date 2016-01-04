@@ -22,7 +22,7 @@
 #include <string>
 
 // This is restricted to 15 characters + the null terminator
-std::string szCaption("SC4Fix pre3");
+std::string szCaption("SC4Fix r4");
 
 void __declspec(naked) TitleBarMod::Hook_Sub44C2B0(void) {
 	_asm mov edx, offset szCaption
