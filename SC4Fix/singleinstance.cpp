@@ -100,20 +100,22 @@ void HandleNonMutexedInstance(void) {
 	// Find the address the non-mutexed code is at by finding where the
 	// TE fix code jumps to.
 	uint32_t dwAddress = NULL;
+	uint32_t dwPointer = NULL;
+
 	switch (GetGameVersion()) {
 	case 640:
-		dwAddress = 0x65EC5E;
+		dwPointer = 0x65EC5E;
 		break;
 
 	case 641:
-		dwAddress = 0x65EE3E;
+		dwPointer = 0x65EE3E;
 		break;
 
 	default:
 		return;
 	}
 
-	dwAddress = *(uint32_t*)(dwAddress + 1);
+	dwAddress = *(uint32_t*)(dwPointer + 1) + dwPointer + 5;
 
 	// Enumerate the DLLs loaded into the game to search for the module
 	// belonging to that address.
