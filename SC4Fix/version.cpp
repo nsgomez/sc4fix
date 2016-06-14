@@ -21,15 +21,15 @@
 #include "version.h"
 uint16_t nGameVersion = 0;
 
-void DetermineGameVersion(void) {
+uint64_t GetAssemblyVersion(HMODULE hModule) {
 	TCHAR szVersionFile[MAX_PATH];
-	GetModuleFileName(NULL, szVersionFile, MAX_PATH);
+	GetModuleFileName(hModule, szVersionFile, MAX_PATH);
 
 	// http://stackoverflow.com/a/940743
 	DWORD  verHandle = NULL;
-	UINT   size      = 0;
-	LPBYTE lpBuffer  = NULL;
-	DWORD  verSize   = GetFileVersionInfoSize(szVersionFile, &verHandle);
+	UINT   size = 0;
+	LPBYTE lpBuffer = NULL;
+	DWORD  verSize = GetFileVersionInfoSize(szVersionFile, &verHandle);
 
 	if (verSize > 0) {
 		LPSTR verData = new char[verSize];
@@ -38,22 +38,32 @@ void DetermineGameVersion(void) {
 			&& size > 0) {
 			VS_FIXEDFILEINFO* verInfo = (VS_FIXEDFILEINFO*)lpBuffer;
 			if (verInfo->dwSignature = 0xfeef04bd) {
-				uint16_t wMajorVer = (verInfo->dwFileVersionMS >> 16) & 0xFFFF;
-				uint16_t wMinorVer = verInfo->dwFileVersionMS & 0xFFFF;
-				uint16_t wRevision = (verInfo->dwFileVersionLS >> 16) & 0xFFFF;
-				uint16_t wBuildNum = verInfo->dwFileVersionLS & 0xFFFF;
+				uint64_t qwValue = verInfo->dwFileVersionMS << 32;
+				qwValue |= verInfo->dwFileVersionLS;
 
-				// 1.1.x.x
-				if (wMajorVer == 1 && wMinorVer == 1) {
-					nGameVersion = wRevision;
-				}
-				else {
-					nGameVersion = 0;
-				}
+				return qwValue;
 			}
 		}
 
 		delete[] verData;
+	}
+
+	return 0;
+}
+
+void DetermineGameVersion(void) {
+	uint64_t qwFileVersion = GetAssemblyVersion(NULL);
+	uint16_t wMajorVer = (qwFileVersion >> 48) & 0xFFFF;
+	uint16_t wMinorVer = (qwFileVersion >> 32) & 0xFFFF;
+	uint16_t wRevision = (qwFileVersion >> 16) & 0xFFFF;
+	uint16_t wBuildNum = qwFileVersion & 0xFFFF;
+
+	// 1.1.x.x
+	if (qwFileVersion > 0 && wMajorVer == 1 && wMinorVer == 1) {
+		nGameVersion = wRevision;
+	}
+	else {
+		nGameVersion = 0;
 	}
 
 	// Fall back to a less accurate detection mechanism

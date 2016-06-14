@@ -23,6 +23,7 @@
 
 void DetermineGameVersion(void);
 uint16_t GetGameVersion(void);
+uint64_t GetAssemblyVersion(HMODULE hModule);
 
 void HandleVersion610Or613(void);
 void HandleVersion638(void);
