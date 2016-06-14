@@ -159,7 +159,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="DLLUnloadPreempt.cpp" />
     <ClCompile Include="patcher.cpp" />
     <ClCompile Include="PuzzlePieceTE.cpp" />
     <ClCompile Include="singleinstance.cpp" />

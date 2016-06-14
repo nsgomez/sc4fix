@@ -30,9 +30,6 @@
     <ClCompile Include="PuzzlePieceTE.cpp">
       <Filter>Source Files\patches</Filter>
     </ClCompile>
-    <ClCompile Include="DLLUnloadPreempt.cpp">
-      <Filter>Source Files\patches</Filter>
-    </ClCompile>
     <ClCompile Include="TitleBarMod.cpp">
       <Filter>Source Files\patches</Filter>
     </ClCompile>
@@ -51,9 +48,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PuzzlePieceTE.h">
-      <Filter>Header Files\patches</Filter>
-    </ClInclude>
-    <ClInclude Include="DLLUnloadPreempt.h">
       <Filter>Header Files\patches</Filter>
     </ClInclude>
     <ClInclude Include="TitleBarMod.h">
