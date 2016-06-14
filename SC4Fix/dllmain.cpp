@@ -20,7 +20,6 @@
 
 #include "dllmain.h"
 #include "patcher.h"
-#include "singleinstance.h"
 #include "version.h"
 
 #include "PuzzlePieceTE.h"
@@ -46,12 +45,6 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 		else if (wVersion != 640 && wVersion != 641) {
 			HandleUnknownVersion();
 		}
-		else if (!ReserveInstance()) {
-			HandleConflictingInstances(hModule);
-		}
-		else if (NonMutexedInstanceExists()) {
-			HandleNonMutexedInstance();
-		}
 		else {
 			CPatcher::UnprotectAll();
 			PuzzlePieceTE::InstallPatch();
@@ -61,7 +54,6 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 		}
 	}
 
-	ReleaseInstance();
 	return FALSE;
 }
 
