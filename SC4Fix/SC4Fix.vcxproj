@@ -71,15 +71,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSdk_71A_IncludePath);../gzcom-dll/include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSdk_71A_IncludePath);../gzcom-dll/include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSdk_71A_IncludePath);../gzcom-dll/include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSdk_71A_IncludePath);../gzcom-dll/include</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -145,6 +149,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cSC4GamePatcher640.cpp" />
+    <ClCompile Include="cSC4GamePatcher641.cpp" />
+    <ClCompile Include="cSC4PatcherDllDirector.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -160,16 +167,18 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="patcher.cpp" />
-    <ClCompile Include="PuzzlePieceTE.cpp" />
-    <ClCompile Include="TitleBarMod.cpp" />
     <ClCompile Include="version.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cISC4Patcher.h" />
+    <ClInclude Include="cIRZGamePatcher.h" />
+    <ClInclude Include="cSC4GamePatcher.h" />
+    <ClInclude Include="cSC4GamePatcher640.h" />
+    <ClInclude Include="cSC4GamePatcher641.h" />
+    <ClInclude Include="cRZUnknown.h" />
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="patcher.h" />
-    <ClInclude Include="PuzzlePieceTE.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="TitleBarMod.h" />
     <ClInclude Include="version.h" />
   </ItemGroup>
   <ItemGroup>

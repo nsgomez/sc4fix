@@ -199,13 +199,8 @@
     <ClInclude Include="include\SC4Rect.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\cGZCityHallUpgradeDllDirector.cpp" />
-    <ClCompile Include="src\cGZExampleDllDirector.cpp" />
-    <ClCompile Include="src\cGZExtraCheatsDllDirector.cpp" />
-    <ClCompile Include="src\cGZExtraExtraCheatsDllDirector.cpp" />
     <ClCompile Include="src\cRZBaseString.cpp" />
     <ClCompile Include="src\cRZCOMDllDirector.cpp" />
-    <ClCompile Include="src\cGZCustomDllDirector.cpp" />
     <ClCompile Include="src\cS3DVector3.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

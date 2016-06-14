@@ -215,25 +215,10 @@
     <ClCompile Include="src\cRZCOMDllDirector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\cGZCustomDllDirector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cGZExampleDllDirector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\cRZBaseString.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\cS3DVector3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cGZExtraCheatsDllDirector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cGZExtraExtraCheatsDllDirector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cGZCityHallUpgradeDllDirector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

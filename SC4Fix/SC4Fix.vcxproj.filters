@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\patches">
-      <UniqueIdentifier>{c4f3727f-943d-459e-a653-47594189e874}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\patches">
-      <UniqueIdentifier>{192d0950-6975-4e59-9c2b-8cc16feeeebd}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -27,15 +21,16 @@
     <ClCompile Include="patcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PuzzlePieceTE.cpp">
-      <Filter>Source Files\patches</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleBarMod.cpp">
-      <Filter>Source Files\patches</Filter>
-    </ClCompile>
     <ClCompile Include="version.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cSC4PatcherDllDirector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cSC4GamePatcher641.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cSC4GamePatcher640.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -46,16 +41,28 @@
     <ClInclude Include="dllmain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PuzzlePieceTE.h">
-      <Filter>Header Files\patches</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleBarMod.h">
-      <Filter>Header Files\patches</Filter>
-    </ClInclude>
     <ClInclude Include="version.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cISC4Patcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cRZUnknown.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cIRZGamePatcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cSC4GamePatcher640.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cSC4GamePatcher641.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cSC4GamePatcher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
