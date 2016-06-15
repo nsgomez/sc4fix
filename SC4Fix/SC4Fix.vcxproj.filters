@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\gzcom-framework">
+      <UniqueIdentifier>{2192a5ee-d003-456f-8af2-02f52b421e8e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -32,6 +35,15 @@
     </ClCompile>
     <ClCompile Include="cSC4GamePatcher640.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gzcom-dll\src\cS3DVector3.cpp">
+      <Filter>Source Files\gzcom-framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gzcom-dll\src\cRZBaseString.cpp">
+      <Filter>Source Files\gzcom-framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gzcom-dll\src\cRZCOMDllDirector.cpp">
+      <Filter>Source Files\gzcom-framework</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

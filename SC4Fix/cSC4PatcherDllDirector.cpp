@@ -200,6 +200,8 @@ class cSC4PatcherDllDirector : public cRZCOMDllDirector, public cIGZSystemServic
 		bool UnregisterPatcher(void) {
 			pGamePatcher->Release();
 			pGamePatcher = nullptr;
+
+			return true;
 		}
 
 	protected:

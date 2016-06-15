@@ -149,6 +149,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\gzcom-dll\src\cRZBaseString.cpp" />
+    <ClCompile Include="..\gzcom-dll\src\cRZCOMDllDirector.cpp" />
+    <ClCompile Include="..\gzcom-dll\src\cS3DVector3.cpp" />
     <ClCompile Include="cSC4GamePatcher640.cpp" />
     <ClCompile Include="cSC4GamePatcher641.cpp" />
     <ClCompile Include="cSC4PatcherDllDirector.cpp" />
