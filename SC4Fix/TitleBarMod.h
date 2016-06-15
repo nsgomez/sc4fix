@@ -1,6 +1,6 @@
 /*
    Project: SC4Fix Patches for SimCity 4
-   File: version.h
+   File: TitleBarMod.h
 
    Copyright (c) 2015 Nelson Gomez (simmaster07)
 
@@ -20,11 +20,14 @@
 
 #pragma once
 #include "dllmain.h"
+#include "patcher.h"
 
-void DetermineGameVersion(void);
-uint16_t GetGameVersion(void);
-uint64_t GetAssemblyVersion(HMODULE hModule);
+class TitleBarMod
+{
+public:
+	static void InstallPatch(void);
 
-void HandleVersion610Or613(void);
-void HandleVersion638(void);
-void HandleUnknownVersion(void);
+private:
+	static void Hook_Sub44C2B0(void);
+	static void Hook_Steam_Sub44C2B0(void);
+};

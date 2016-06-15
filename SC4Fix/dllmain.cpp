@@ -20,7 +20,12 @@
 
 #include "dllmain.h"
 #include "patcher.h"
+#include "singleinstance.h"
 #include "version.h"
+
+#include "DLLUnloadPreempt.h"
+#include "PuzzlePieceTE.h"
+#include "TitleBarMod.h"
 
 //----------------------------------------------------------
 // NOTE: All unnamed subroutines are based on their
@@ -30,8 +35,35 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 {
 	if (dwReason == DLL_PROCESS_ATTACH) {
 		DisableThreadLibraryCalls(hModule);
-		return TRUE;
+		DetermineGameVersion();
+
+		uint16_t wVersion = GetGameVersion();
+		if (wVersion == 610 || wVersion == 613) {
+			HandleVersion610Or613();
+		}
+		else if (wVersion == 638) {
+			HandleVersion638();
+		}
+		else if (wVersion != 640 && wVersion != 641) {
+			HandleUnknownVersion();
+		}
+		else if (!ReserveInstance()) {
+			HandleConflictingInstances(hModule);
+		}
+		else if (NonMutexedInstanceExists()) {
+			HandleNonMutexedInstance();
+		}
+		else {
+			CPatcher::UnprotectAll();
+			DLLUnloadPreempt::InstallPatch();
+			PuzzlePieceTE::InstallPatch();
+			TitleBarMod::InstallPatch();
+
+			return TRUE;
+		}
 	}
 
+	ReleaseInstance();
 	return FALSE;
 }
+

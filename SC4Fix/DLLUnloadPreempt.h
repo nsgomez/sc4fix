@@ -1,6 +1,6 @@
 /*
    Project: SC4Fix Patches for SimCity 4
-   File: version.h
+   File: DLLUnloadPreempt.h
 
    Copyright (c) 2015 Nelson Gomez (simmaster07)
 
@@ -20,11 +20,10 @@
 
 #pragma once
 #include "dllmain.h"
+#include "patcher.h"
 
-void DetermineGameVersion(void);
-uint16_t GetGameVersion(void);
-uint64_t GetAssemblyVersion(HMODULE hModule);
-
-void HandleVersion610Or613(void);
-void HandleVersion638(void);
-void HandleUnknownVersion(void);
+class DLLUnloadPreempt
+{
+public:
+	static void InstallPatch(void);
+};

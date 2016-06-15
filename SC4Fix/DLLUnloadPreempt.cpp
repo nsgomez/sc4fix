@@ -1,6 +1,6 @@
 /*
    Project: SC4Fix Patches for SimCity 4
-   File: version.h
+   File: DLLUnloadPreempt.cpp
 
    Copyright (c) 2015 Nelson Gomez (simmaster07)
 
@@ -18,13 +18,25 @@
    THE SOFTWARE.
 */
 
-#pragma once
-#include "dllmain.h"
+#include "DLLUnloadPreempt.h"
 
-void DetermineGameVersion(void);
-uint16_t GetGameVersion(void);
-uint64_t GetAssemblyVersion(HMODULE hModule);
+//--- DISABLE LIBRARY UNLOADING IN SC4 ---------------------
+// Replaces a call in cGZCOMLibrary::Free to FreeLibrary
+// with a no-op. SC4 won't know that any nonstandard
+// DLLs are loaded, but they'll remain loaded in memory
+// nonetheless.
+//----------------------------------------------------------
+void DLLUnloadPreempt::InstallPatch(void) {
+	switch (GetGameVersion()) {
+	case 640:
+		memset((void*)0x87B5A3, 0x90, 5);
+		break;
 
-void HandleVersion610Or613(void);
-void HandleVersion638(void);
-void HandleUnknownVersion(void);
+	case 641:
+		memset((void*)0x87B3D1, 0x90, 5);
+		break;
+
+	default:
+		break;
+	}
+}

@@ -1,6 +1,6 @@
 /*
    Project: SC4Fix Patches for SimCity 4
-   File: version.h
+   File: TitleBarMod.cpp
 
    Copyright (c) 2015 Nelson Gomez (simmaster07)
 
@@ -18,13 +18,36 @@
    THE SOFTWARE.
 */
 
-#pragma once
-#include "dllmain.h"
+#include "TitleBarMod.h"
+#include <string>
 
-void DetermineGameVersion(void);
-uint16_t GetGameVersion(void);
-uint64_t GetAssemblyVersion(HMODULE hModule);
+// This is restricted to 15 characters + the null terminator
+std::string szCaption("SC4Fix");
 
-void HandleVersion610Or613(void);
-void HandleVersion638(void);
-void HandleUnknownVersion(void);
+void __declspec(naked) TitleBarMod::Hook_Sub44C2B0(void) {
+	_asm mov edx, offset szCaption
+	RETJMP(44C99Ch);
+}
+
+void __declspec(naked) TitleBarMod::Hook_Steam_Sub44C2B0(void) {
+	_asm mov ecx, offset szCaption
+	RETJMP(44CA80h)
+}
+
+void TitleBarMod::InstallPatch(void) {
+	switch (GetGameVersion()) {
+	case 640:
+		CPatcher::InstallHook(0x44C996, Hook_Sub44C2B0);
+		break;
+
+	case 641:
+		CPatcher::InstallHook(0x44CA7A, Hook_Steam_Sub44C2B0);
+		break;
+
+	default:
+		break;
+	}
+
+	szCaption.append(" r");
+	szCaption.append(std::to_string(SC4FIX_RELEASE_VER));
+}

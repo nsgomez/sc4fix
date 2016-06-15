@@ -1,6 +1,6 @@
 /*
    Project: SC4Fix Patches for SimCity 4
-   File: version.h
+   File: singleinstance.h
 
    Copyright (c) 2015 Nelson Gomez (simmaster07)
 
@@ -21,10 +21,13 @@
 #pragma once
 #include "dllmain.h"
 
-void DetermineGameVersion(void);
-uint16_t GetGameVersion(void);
-uint64_t GetAssemblyVersion(HMODULE hModule);
+// This should never be modified or else you'll create
+// conflicts between versions.
+#define MUTEX_NAME "SC4Fix_{FA65A963-9315-4A2F-ADBB-4A2F36E056F5}"
 
-void HandleVersion610Or613(void);
-void HandleVersion638(void);
-void HandleUnknownVersion(void);
+BOOL NonMutexedInstanceExists(void);
+BOOL ReserveInstance(void);
+
+void HandleConflictingInstances(HMODULE hModule);
+void HandleNonMutexedInstance(void);
+BOOL ReleaseInstance(void);
