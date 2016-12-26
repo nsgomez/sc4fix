@@ -1,0 +1,3 @@
+[submodule "gzcom-dll"]
+	path = gzcom-dll
+	url = https://github.com/nsgomez/gzcom-dll.git
