@@ -13,5 +13,66 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\patchset">
+      <UniqueIdentifier>{28f6897e-a14b-4b4a-8859-d46d34517d9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\patchset">
+      <UniqueIdentifier>{a9f3b3aa-dc60-48b2-a261-631c81887e6b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cFXManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cFXPatcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cIFXPatch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cIFXPatcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cIFXManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cFXPuzzlePieceTEPatch.h">
+      <Filter>Header Files\patchset</Filter>
+    </ClInclude>
+    <ClInclude Include="cFXDisconnectorPatch.h">
+      <Filter>Header Files\patchset</Filter>
+    </ClInclude>
+    <ClInclude Include="cFXFaunaControllerPatch.h">
+      <Filter>Header Files\patchset</Filter>
+    </ClInclude>
+    <ClInclude Include="cFXMMPCyclePatch.h">
+      <Filter>Header Files\patchset</Filter>
+    </ClInclude>
+    <ClInclude Include="patcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cFXManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cFXPatcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="patcher.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cFXDisconnectorPatch.cpp">
+      <Filter>Source Files\patchset</Filter>
+    </ClCompile>
+    <ClCompile Include="cFXFaunaController.cpp">
+      <Filter>Source Files\patchset</Filter>
+    </ClCompile>
+    <ClCompile Include="cFXMMPCyclePatch.cpp">
+      <Filter>Source Files\patchset</Filter>
+    </ClCompile>
+    <ClCompile Include="cFXPuzzlePieceTEPatch.cpp">
+      <Filter>Source Files\patchset</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

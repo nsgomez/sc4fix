@@ -4,6 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SC4Fix", "SC4Fix.vcxproj", "{0D7C3106-8178-4A29-BF04-1E58A3541C13}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D13A65FB-F5EB-42E1-8520-C5B6A03F274A} = {D13A65FB-F5EB-42E1-8520-C5B6A03F274A}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gzcom2", "gzcom-dll\gzcom-dll\gzcom2.vcxproj", "{D13A65FB-F5EB-42E1-8520-C5B6A03F274A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,14 @@ Global
 		{0D7C3106-8178-4A29-BF04-1E58A3541C13}.Release|x64.Build.0 = Release|x64
 		{0D7C3106-8178-4A29-BF04-1E58A3541C13}.Release|x86.ActiveCfg = Release|Win32
 		{0D7C3106-8178-4A29-BF04-1E58A3541C13}.Release|x86.Build.0 = Release|Win32
+		{D13A65FB-F5EB-42E1-8520-C5B6A03F274A}.Debug|x64.ActiveCfg = Debug|x64
+		{D13A65FB-F5EB-42E1-8520-C5B6A03F274A}.Debug|x64.Build.0 = Debug|x64
+		{D13A65FB-F5EB-42E1-8520-C5B6A03F274A}.Debug|x86.ActiveCfg = Debug|Win32
+		{D13A65FB-F5EB-42E1-8520-C5B6A03F274A}.Debug|x86.Build.0 = Debug|Win32
+		{D13A65FB-F5EB-42E1-8520-C5B6A03F274A}.Release|x64.ActiveCfg = Release|x64
+		{D13A65FB-F5EB-42E1-8520-C5B6A03F274A}.Release|x64.Build.0 = Release|x64
+		{D13A65FB-F5EB-42E1-8520-C5B6A03F274A}.Release|x86.ActiveCfg = Release|Win32
+		{D13A65FB-F5EB-42E1-8520-C5B6A03F274A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
