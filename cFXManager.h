@@ -5,6 +5,20 @@
 class cFXManager : public cIFXManager, public cRZUnknown
 {
 	public:
+		uint32_t GetServiceID(void);
+		cIGZSystemService* SetServiceID(uint32_t dwServiceId);
+
+		int32_t GetServicePriority(void);
+		bool IsServiceRunning(void);
+		cIGZSystemService* SetServiceRunning(bool bRunning);
+
+		bool Init(void);
+		bool Shutdown(void);
+		
+		bool OnTick(void);
+		bool OnIdle(void);
+
+	public:
 		cFXManager(void);
 		virtual ~cFXManager(void);
 
@@ -17,4 +31,6 @@ class cFXManager : public cIFXManager, public cRZUnknown
 
 	private:
 		cIFXPatcher* m_pCurPatcher;
+		bool m_bHasValidVersion;
+		bool m_bRunningSteam;
 };

@@ -10,7 +10,7 @@ class cFXPatcher : public cIFXPatcher, public cRZUnknown
 		bool InstallPatches(bool bUseSteamPatches);
 		bool UninstallPatches(void);
 
-		patchv GetPatcherVersion(void);
+		const patchv GetVersion(void) const;
 
 	private:
 		std::list<cIFXPatch*> sPatches;

@@ -18,5 +18,5 @@ class cIFXPatcher : public cIGZUnknown
 		virtual bool InstallPatches(bool bUseSteamPatches) = 0;
 		virtual bool UninstallPatches(void) = 0;
 
-		virtual patchv GetPatcherVersion(void) = 0;
+		virtual patchv GetVersion(void) = 0;
 };
