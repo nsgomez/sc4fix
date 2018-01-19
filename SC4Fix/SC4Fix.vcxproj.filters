@@ -19,6 +19,9 @@
     <Filter Include="Header Files\patches">
       <UniqueIdentifier>{192d0950-6975-4e59-9c2b-8cc16feeeebd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\EASTL">
+      <UniqueIdentifier>{95973447-f1d0-401e-805a-5b32a3d00398}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -39,8 +42,35 @@
     <ClCompile Include="version.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="singleinstance.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="PropPoxVaccine.cpp">
+      <Filter>Source Files\patches</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EASTL\source\allocator_eastl.cpp">
+      <Filter>Source Files\EASTL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EASTL\source\assert.cpp">
+      <Filter>Source Files\EASTL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EASTL\source\fixed_pool.cpp">
+      <Filter>Source Files\EASTL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EASTL\source\hashtable.cpp">
+      <Filter>Source Files\EASTL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EASTL\source\intrusive_list.cpp">
+      <Filter>Source Files\EASTL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EASTL\source\numeric_limits.cpp">
+      <Filter>Source Files\EASTL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EASTL\source\red_black_tree.cpp">
+      <Filter>Source Files\EASTL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EASTL\source\string.cpp">
+      <Filter>Source Files\EASTL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EASTL\source\thread_support.cpp">
+      <Filter>Source Files\EASTL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,11 +92,11 @@
     <ClInclude Include="version.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="singleinstance.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PropPoxVaccine.h">
+      <Filter>Header Files\patches</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

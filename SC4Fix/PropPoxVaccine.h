@@ -1,8 +1,8 @@
 /*
    Project: SC4Fix Patches for SimCity 4
-   File: singleinstance.h
+   File: PropPoxVaccine.h
 
-   Copyright (c) 2015 Nelson Gomez (simmaster07)
+   Copyright (c) 2018 Nelson Gomez (simmaster07)
 
    Licensed under the MIT License. A copy of the License is available in
    LICENSE or at:
@@ -20,14 +20,10 @@
 
 #pragma once
 #include "dllmain.h"
+#include "patcher.h"
 
-// This should never be modified or else you'll create
-// conflicts between versions.
-#define MUTEX_NAME "SC4Fix_{FA65A963-9315-4A2F-ADBB-4A2F36E056F5}"
-
-BOOL NonMutexedInstanceExists(void);
-BOOL ReserveInstance(void);
-
-void HandleConflictingInstances(HMODULE hModule);
-void HandleNonMutexedInstance(void);
-BOOL ReleaseInstance(void);
+class PropPoxVaccine
+{
+public:
+	static void InstallPatch(void);
+};

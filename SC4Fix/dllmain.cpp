@@ -20,10 +20,10 @@
 
 #include "dllmain.h"
 #include "patcher.h"
-#include "singleinstance.h"
 #include "version.h"
 
 #include "DLLUnloadPreempt.h"
+#include "PropPoxVaccine.h"
 #include "PuzzlePieceTE.h"
 #include "TitleBarMod.h"
 
@@ -47,23 +47,17 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 		else if (wVersion != 640 && wVersion != 641) {
 			HandleUnknownVersion();
 		}
-		else if (!ReserveInstance()) {
-			HandleConflictingInstances(hModule);
-		}
-		else if (NonMutexedInstanceExists()) {
-			HandleNonMutexedInstance();
-		}
 		else {
 			CPatcher::UnprotectAll();
 			DLLUnloadPreempt::InstallPatch();
 			PuzzlePieceTE::InstallPatch();
 			TitleBarMod::InstallPatch();
+			PropPoxVaccine::InstallPatch();
 
 			return TRUE;
 		}
 	}
 
-	ReleaseInstance();
 	return FALSE;
 }
 
