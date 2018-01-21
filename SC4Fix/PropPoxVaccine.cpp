@@ -248,12 +248,17 @@ public:
 void* pRealFree;
 void* pRealMapOperatorEq;
 
-void __declspec(naked) FreeMap(void* pUnknown) {
-	_asm push eax
-	_asm mov eax, pUnknown
+void __declspec(naked) __fastcall FreeMap(void* pUnknown) {
+	_asm push ebp
+	_asm mov ebp, esp
+
+	_asm push ecx
 	_asm call pRealFree
-	_asm pop eax
-	_asm retn 4h
+	_asm add esp, 4h
+	
+	_asm mov esp, ebp
+	_asm pop ebp
+	_asm retn
 }
 
 void __declspec(naked) __fastcall MapOperatorEq(void* left, void* right) {
@@ -314,11 +319,11 @@ protected:
 		pNode->~node_type();
 
 		// TODO: put this in an allocator
-		/*cIGZUnknown* pUnknown = (cIGZUnknown*)pNode->mValue.second.pSerializable;
+		cIGZUnknown* pUnknown = (cIGZUnknown*)pNode->mValue.second.pSerializable;
 		if (pUnknown)
 			pUnknown->Release();
 
-		FreeMap(pNode);*/
+		FreeMap(pNode);
 	}
 };
 
@@ -444,7 +449,7 @@ unsigned int xcrc32 (const unsigned char *buf, int len)
     return crc;
 }
 
-#define DEBUG
+//#define DEBUG
 #ifdef DEBUG
 void PRINTDBG(const char* pszFormat, ...) {
 	static FILE* fp = NULL;
@@ -581,15 +586,6 @@ bool __thiscall cSC4COMSerializer::SaveClassObjectsImpl()
                     }
                     
                 }
-
-				/*if (!info.dataPendingWrite.empty()) {
-					char buf[150];
-					sprintf_s(buf, "assertion failure incoming: size=%u, erased %u of %u",
-						info.dataPendingWrite.size(), erased, size);
-					MessageBoxA(NULL, buf, NULL, NULL);
-				}
-                
-                assert(info.dataPendingWrite.empty());*/
                 
                 if (!this->pOpenSegment->CloseOStream(pOutStream)) {
                     PRINTDBG("[COMSerialize] Failed to close output stream, bailing\n");
