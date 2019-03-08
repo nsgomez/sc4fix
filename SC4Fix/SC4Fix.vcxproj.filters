@@ -72,6 +72,9 @@
     <ClCompile Include="..\EASTL\source\thread_support.cpp">
       <Filter>Source Files\EASTL</Filter>
     </ClCompile>
+    <ClCompile Include="CensusNoDeveloperFix.cpp">
+      <Filter>Source Files\patches</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="patcher.h">
@@ -96,6 +99,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PropPoxVaccine.h">
+      <Filter>Header Files\patches</Filter>
+    </ClInclude>
+    <ClInclude Include="CensusNoDeveloperFix.h">
       <Filter>Header Files\patches</Filter>
     </ClInclude>
   </ItemGroup>

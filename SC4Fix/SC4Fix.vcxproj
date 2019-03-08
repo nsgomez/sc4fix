@@ -162,6 +162,7 @@
     <ClCompile Include="..\EASTL\source\red_black_tree.cpp" />
     <ClCompile Include="..\EASTL\source\string.cpp" />
     <ClCompile Include="..\EASTL\source\thread_support.cpp" />
+    <ClCompile Include="CensusNoDeveloperFix.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -184,6 +185,7 @@
     <ClCompile Include="version.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CensusNoDeveloperFix.h" />
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="DLLUnloadPreempt.h" />
     <ClInclude Include="patcher.h" />

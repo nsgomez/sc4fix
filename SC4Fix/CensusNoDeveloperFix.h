@@ -1,6 +1,6 @@
 /*
    Project: SC4Fix Patches for SimCity 4
-   File: TitleBarMod.cpp
+   File: CensusNoDeveloperFix.h
 
    Copyright (c) 2015 Nelson Gomez (simmaster07)
 
@@ -18,33 +18,18 @@
    THE SOFTWARE.
 */
 
-#include "TitleBarMod.h"
-#include <string>
+#pragma once
+#include "dllmain.h"
+#include "patcher.h"
 
-// This is restricted to 15 characters + the null terminator
-std::string szCaption("SC4Fix r7b");
+class CensusNoDeveloper
+{
+public:
+	static void InstallPatch(void);
 
-void __declspec(naked) TitleBarMod::Hook_Sub44C2B0(void) {
-	_asm mov edx, offset szCaption
-	RETJMP(44C99Ch);
-}
+private:
+	static void Hook_Sub6A5A00(void);
 
-void __declspec(naked) TitleBarMod::Hook_Steam_Sub44C2B0(void) {
-	_asm mov ecx, offset szCaption
-	RETJMP(44CA80h)
-}
-
-void TitleBarMod::InstallPatch(void) {
-	switch (GetGameVersion()) {
-	case 640:
-		CPatcher::InstallHook(0x44C996, Hook_Sub44C2B0);
-		break;
-
-	case 641:
-		CPatcher::InstallHook(0x44CA7A, Hook_Steam_Sub44C2B0);
-		break;
-
-	default:
-		break;
-	}
-}
+	static uint32_t Sub6A5A00_InjectPoint;
+	static uint32_t Sub6A5A00_ContinueJump;
+};

@@ -26,6 +26,7 @@
 #include "PropPoxVaccine.h"
 #include "PuzzlePieceTE.h"
 #include "TitleBarMod.h"
+#include "CensusNoDeveloperFix.h"
 
 //----------------------------------------------------------
 // NOTE: All unnamed subroutines are based on their
@@ -53,6 +54,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 			PuzzlePieceTE::InstallPatch();
 			TitleBarMod::InstallPatch();
 			PropPoxVaccine::InstallPatch();
+			CensusNoDeveloper::InstallPatch();
 
 			return TRUE;
 		}
