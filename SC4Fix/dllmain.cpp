@@ -18,6 +18,8 @@
    THE SOFTWARE.
 */
 
+#include <stdio.h>
+
 #include "dllmain.h"
 #include "patcher.h"
 #include "version.h"
@@ -25,7 +27,6 @@
 #include "DLLUnloadPreempt.h"
 #include "PropPoxVaccine.h"
 #include "PuzzlePieceTE.h"
-#include "TitleBarMod.h"
 
 //----------------------------------------------------------
 // NOTE: All unnamed subroutines are based on their
@@ -51,8 +52,15 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 			CPatcher::UnprotectAll();
 			DLLUnloadPreempt::InstallPatch();
 			PuzzlePieceTE::InstallPatch();
-			TitleBarMod::InstallPatch();
 			PropPoxVaccine::InstallPatch();
+
+			FILE* fp = fopen("SC4Fix.log", "w");
+			if (fp != NULL)
+			{
+				fputs("Loaded SC4Fix version " SC4FIX_RELEASE_VER "\r\n", fp);
+				fprintf(fp, "Detected game version %u\r\n", wVersion);
+				fclose(fp);
+			}
 
 			return TRUE;
 		}
